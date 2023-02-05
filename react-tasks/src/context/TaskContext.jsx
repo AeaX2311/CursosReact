@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { tasks as data } from "../components/data/tasks";
 
+export const TaskContext = createContext();
+
 export function TaskContextProvider(props) {
   const [tasks, setTasks] = useState([]);
 
@@ -18,11 +20,13 @@ export function TaskContextProvider(props) {
   function deleteTask(task) {
     setTasks(tasks.filter((t) => t.id !== task.id));
   }
+
   useEffect(() => {
     setTasks(data);
   }, []);
+
   return (
-    <TaskContextProvider
+    <TaskContext.Provider
       value={{
         tasks,
         createTask,
@@ -30,8 +34,6 @@ export function TaskContextProvider(props) {
       }}
     >
       {props.children}
-    </TaskContextProvider>
+    </TaskContext.Provider>
   );
 }
-
-export const TaskContext = createContext();
