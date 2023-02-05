@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TaskContext } from "../../context/TaskContext";
 
 function clear() {
   document.getElementById("txtTask").value = "";
   document.getElementById("txtDescription").value = "";
 }
 
-function TaskForm({ createTask }) {
+function TaskForm() {
   const [name, setName] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const { createTask } = useContext(TaskContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,12 +19,14 @@ function TaskForm({ createTask }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input id="txtTask"
+      <input
+        id="txtTask"
         placeholder="Escribe tu tarea"
         onChange={(e) => setName(e.target.value)}
       />
       <br />
-      <textarea id="txtDescription"
+      <textarea
+        id="txtDescription"
         placeholder="Escribe una descipcion"
         onChange={(e) => setDescripcion(e.target.value)}
       ></textarea>
